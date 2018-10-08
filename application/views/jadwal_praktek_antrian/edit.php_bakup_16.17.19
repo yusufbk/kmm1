@@ -1,0 +1,88 @@
+<div class="row">
+    <div class="col-md-12">
+      	<div class="box box-info">
+            <div class="box-header with-border">
+              	<h3 class="box-title">Jadwal Praktek Antrian Edit</h3>
+            </div>
+			<?php echo form_open('jadwal_praktek_antrian/edit/'.$m_jadwal_praktek_antrian['pk']); ?>
+			<div class="box-body">
+							
+				<div class="row clearfix">
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+						<label for="jadwal_praktek_fk" class="control-label">Jadwal Praktek</label>
+						<div class="form-group">
+							<select name="jadwal_praktek_fk" class="form-control" required>
+								<option value="">Pilih Jadwal Praktek</option>
+								<?php 
+								foreach($all_m_jadwal_praktek as $m_jadwal_praktek)
+								{
+									$selected = ($m_jadwal_praktek['id'] == $m_jadwal_praktek_antrian['jadwal_praktek_fk']) ? ' selected="selected"' : "";
+
+									echo '<option value="'.$m_jadwal_praktek['id'].'" '.$selected.'>'.$m_jadwal_praktek['id_session_jadwal'].'</option>';
+								} 
+								?>
+							</select>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+						<label for="pasien_fk" class="control-label">Pasien </label>
+						<div class="form-group">
+							<select name="pasien_fk" class="form-control" required>
+								<option value="">Pilih Pasien</option>
+								<?php 
+								foreach($all_m_pasien as $m_kontak)
+								{
+									$selected = ($m_kontak->pk == $m_jadwal_praktek_antrian['pasien_fk']) ? ' selected="selected"' : "";
+
+									echo '<option value="'.$m_kontak->pk.'" '.$selected.'>'.$m_kontak->nama.'</option>';
+								} 
+								?>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="row clearfix">
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+						<label for="nomor_registrasi_pasien" class="control-label">Nomor Registrasi Pasien</label>
+						<div class="form-group">
+							<input type="text" name="nomor_registrasi_pasien" value="<?php echo ($this->input->post('nomor_registrasi_pasien') ? $this->input->post('nomor_registrasi_pasien') : $m_jadwal_praktek_antrian['nomor_registrasi_pasien']); ?>" class="form-control" id="nomor_registrasi_pasien" required/>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+						<label for="jadwal_kunjung" class="control-label">Jadwal Kunjung</label>
+						<div class="form-group">
+							<input type="datetime-local" name="jadwal_kunjung" value="<?php echo ($this->input->post('jadwal_kunjung') ? $this->input->post('jadwal_kunjung') : strftime('%Y-%m-%dT%H:%M:%S', strtotime($m_jadwal_praktek_antrian['jadwal_kunjung']))); ?>" class="form-control" id="jadwal_kunjung" required/>
+						</div>
+					</div>
+				</div>
+				<div class="row clearfix">
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+						<label for="realisasi_kunjung" class="control-label">Realisasi Kunjung</label>
+						<div class="form-group">
+							<input type="datetime-local" name="realisasi_kunjung" value="<?php echo ($this->input->post('realisasi_kunjung') ? $this->input->post('realisasi_kunjung') : strftime('%Y-%m-%dT%H:%M:%S', strtotime($m_jadwal_praktek_antrian['realisasi_kunjung']))); ?>" class="form-control" id="realisasi_kunjung" />
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+						<label for="status_antrian" class="control-label">Status Antrian</label>
+						<div class="form-group">
+							<select name="status_antrian" class="form-control" required>
+								<option value="">Pilih Status Antrian</option>
+								<option value="Diantrikan" <?php if ($m_jadwal_praktek_antrian['status_antrian']=="Diantrikan") {echo 'selected="selected"';}?>>Diantrikan</option>
+								<option value="Terjadwalkan" <?php if ($m_jadwal_praktek_antrian['status_antrian']=="Terjadwalkan") {echo 'selected="selected"';}?>>Terjadwalkan</option>
+								<option value="Tindakan" <?php if ($m_jadwal_praktek_antrian['status_antrian']=="Tindakan") {echo 'selected="selected"';}?>>Tindakan</option>
+								<option value="Selesai" <?php if ($m_jadwal_praktek_antrian['status_antrian']=="Selesai") {echo 'selected="selected"';}?>>Selesai</option>
+								<option value="Batal" <?php if ($m_jadwal_praktek_antrian['status_antrian']=="Batal") {echo 'selected="selected"';}?>>Batal</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer">
+            	<button type="submit" class="btn btn-success">
+					<i class="fa fa-check"></i> Save
+				</button>
+	        </div>				
+			<?php echo form_close(); ?>
+		</div>
+    </div>
+</div>
